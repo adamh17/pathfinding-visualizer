@@ -1,38 +1,94 @@
-.App {
-  text-align: center;
+/* .App {
+  
+} */
+
+.App #table {
+  width: 1100px;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+  white-space: normal;
+  line-height: normal;
+  box-sizing: border-box;
+  border-spacing: 0;
+  padding-top: 70px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.App .header {
+  padding: 30px;
+  background: #1abc9c;
   color: white;
+  justify-content: flex-start;
 }
 
-.App-link {
-  color: #61dafb;
+.App .header .title {
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 30px;
+  padding-right: 25px;
+  color: black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App #button {
+  background-color: #2ea44f;
+  border: 2px solid rgba(27, 31, 35, 0.5);
+  border-radius: 4px;
+  box-shadow: rgba(27, 31, 35, 0.5) 0 1px 0;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 6px 16px;
+  white-space: nowrap;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+}
+
+.App #table tbody #row {
+  border: 1px solid black;
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+.App #table tbody #row .testing {
+  border: 1px solid black;
+  display: table-cell;
+  vertical-align: inherit;
+  height: 25px;
+  width: 25px;
+}
+
+.App #table tbody #row .start-cell {
+  border: 1px solid black;
+  display: table-cell;
+  vertical-align: inherit;
+  height: 25px;
+  width: 25px;
+  background-color: green;
+}
+
+.App #table tbody #row .target-cell {
+  border: 1px solid black;
+  display: table-cell;
+  vertical-align: inherit;
+  height: 25px;
+  width: 25px;
+  background-color: red;
+}
+
+.visited {
+  border: 1px solid black;
+  display: table-cell;
+  vertical-align: inherit;
+  height: 25px;
+  width: 25px;
+  background-color: blue;
 }
