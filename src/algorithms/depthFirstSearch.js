@@ -6,13 +6,16 @@ export default async function depthFirstSearch() {
   let table = document.getElementById("table");
 
   let stack = [];
+  let parent = {};
   let explored = new Set();
 
   let targetCell = null;
+  let startCell = null;
 
   for (var x = 0, row; (row = table.rows[x]); x++) {
     for (var y = 0, cell; (cell = row.cells[y]); y++) {
       if (cell.className === "start-cell") {
+        startCell = cell;
         stack.push(cell);
       } else if (cell.className === "target-cell") {
         targetCell = cell;
@@ -62,20 +65,30 @@ export default async function depthFirstSearch() {
 
     try {
       if (currentCell.id === targetCell.id) {
-        console.log("We've found it!");
+        let path = [targetCell.id];
+        while (path.at(-1) !== startCell.id) {
+          path.push(parent[path.at(-1)]);
+        }
+        path.reverse();
+        // console.log(path);
+        shortestPath(path);
         return;
       }
 
       if (nextRowUp !== undefined && !explored.has(nextRowUp)) {
+        parent[nextRowUp.id] = currentCell.id;
         stack.push(nextRowUp);
         // currentCell.className = "visited";
       } else if (nextCellRight !== undefined && !explored.has(nextCellRight)) {
+        parent[nextCellRight.id] = currentCell.id;
         stack.push(nextCellRight);
         // currentCell.className = "visited";
       } else if (nextRowDown !== undefined && !explored.has(nextRowDown)) {
+        parent[nextRowDown.id] = currentCell.id;
         stack.push(nextRowDown);
         // currentCell.className = "visited";
       } else if (nextCellLeft !== undefined && !explored.has(nextCellLeft)) {
+        parent[nextCellLeft.id] = currentCell.id;
         stack.push(nextCellLeft);
         // currentCell.className = "visited";
       }
@@ -83,6 +96,29 @@ export default async function depthFirstSearch() {
       await sleep(0);
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  async function shortestPath(path) {
+    let allTableCells = [];
+    let allTableCellsIDs = [];
+    for (var x = 0, row; (row = table.rows[x]); x++) {
+      for (var y = 0, cell; (cell = row.cells[y]); y++) {
+        // if (path.includes(cell.id)) {
+        //   cell.className = "shortest";
+        //   await sleep(40);
+        // }
+        allTableCells.push(cell);
+        allTableCellsIDs.push(cell.id);
+      }
+    }
+
+    for (var a = 0, item; (item = path[a]); a++) {
+      if (allTableCellsIDs.includes(item)) {
+        var index = allTableCellsIDs.indexOf(item);
+        allTableCells[index].className = "shortest";
+        await sleep(25);
+      }
     }
   }
 }
