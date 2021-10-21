@@ -52,7 +52,7 @@ export default async function depthFirstSearch() {
     rowUp = rowUp - 1;
 
     let nextRowDown = undefined;
-    if (rowDown + 1 <= 19) {
+    if (rowDown + 1 <= 24) {
       nextRowDown =
         table.rows[(rowDown + 1).toString()].cells[
           (rowDown + 1).toString() + "-" + c
@@ -80,7 +80,7 @@ export default async function depthFirstSearch() {
         // currentCell.className = "visited";
       }
 
-      await sleep(100);
+      await sleep(0);
     } catch (e) {
       console.log(e);
     }

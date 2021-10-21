@@ -13,9 +13,9 @@ export default class MakeTable extends Component {
 
   componentDidMount() {
     const rows = [];
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 25; i++) {
       let cell = [];
-      for (let j = 0; j < 30; j++) {
+      for (let j = 0; j < 40; j++) {
         if (i === 5 && j === 5) {
           cell.push(<td key={j} className="start-cell" id={i + "-" + j}></td>);
         } else if (i === 5 && j === 25) {
@@ -59,15 +59,17 @@ const sleep = (time) => {
   return new Promise((resolve) => setTimeout(resolve, time));
 };
 
-async function breadthFirstSearch({ rows }) {
+async function breadthFirstSearch() {
   let table = document.getElementById("table");
 
   let queue = [];
   let targetCell = null;
+  let startCell = null;
 
   for (var x = 0, row; (row = table.rows[x]); x++) {
     for (var y = 0, cell; (cell = row.cells[y]); y++) {
       if (cell.className === "start-cell") {
+        startCell = cell;
         queue.push(cell);
       } else if (cell.className === "target-cell") {
         targetCell = cell;
@@ -76,12 +78,12 @@ async function breadthFirstSearch({ rows }) {
   }
 
   let explored = new Set();
-
+  let parent = {};
   while (queue.length > 0) {
     let rowUp = parseInt(queue[0].id.split("-")[0]);
     let rowDown = parseInt(queue[0].id.split("-")[0]);
 
-    var currentCell = queue.shift();
+    let currentCell = queue.shift();
     currentCell.className = "visited";
 
     if (!explored.has(currentCell)) {
@@ -109,7 +111,7 @@ async function breadthFirstSearch({ rows }) {
     rowUp = rowUp - 1;
 
     let nextRowDown = undefined;
-    if (rowDown + 1 <= 19) {
+    if (rowDown + 1 <= 24) {
       nextRowDown =
         table.rows[(rowDown + 1).toString()].cells[
           (rowDown + 1).toString() + "-" + c
@@ -119,26 +121,35 @@ async function breadthFirstSearch({ rows }) {
 
     try {
       if (currentCell.id === targetCell.id) {
-        console.log("We've found it!");
+        let path = [targetCell.id];
+        while (path.at(-1) !== startCell.id) {
+          path.push(parent[path.at(-1)]);
+        }
+        path.reverse();
+        shortestPath(path);
         return;
       }
 
       if (nextRowUp !== undefined && !explored.has(nextRowUp)) {
+        parent[nextRowUp.id] = currentCell.id;
         queue.push(nextRowUp);
         // currentCell.className = "visited";
       }
 
       if (nextCellRight !== undefined && !explored.has(nextCellRight)) {
+        parent[nextCellRight.id] = currentCell.id;
         queue.push(nextCellRight);
         // currentCell.className = "visited";
       }
 
       if (nextRowDown !== undefined && !explored.has(nextRowDown)) {
+        parent[nextRowDown.id] = currentCell.id;
         queue.push(nextRowDown);
         // currentCell.className = "visited";
       }
 
       if (nextCellLeft !== undefined && !explored.has(nextCellLeft)) {
+        parent[nextCellLeft.id] = currentCell.id;
         queue.push(nextCellLeft);
         // currentCell.className = "visited";
       }
@@ -146,6 +157,17 @@ async function breadthFirstSearch({ rows }) {
       await sleep(0);
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  async function shortestPath(path) {
+    for (var x = 0, row; (row = table.rows[x]); x++) {
+      for (var y = 0, cell; (cell = row.cells[y]); y++) {
+        if (path.includes(cell.id)) {
+          cell.className = "shortest";
+          await sleep(40);
+        }
+      }
     }
   }
 }

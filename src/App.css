@@ -3,7 +3,7 @@
 } */
 
 .App #table {
-  width: 1100px;
+  width: 1400px;
   height: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -91,4 +91,13 @@ tbody {
   height: 25px;
   width: 25px;
   background-color: blue;
+}
+
+.shortest {
+  border: 1px solid black;
+  display: table-cell;
+  vertical-align: inherit;
+  height: 25px;
+  width: 25px;
+  background-color: yellow;
 }
