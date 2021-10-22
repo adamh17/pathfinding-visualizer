@@ -1,5 +1,5 @@
 /* .App {
-  
+
 } */
 
 .App #table {
@@ -12,30 +12,35 @@
   line-height: normal;
   box-sizing: border-box;
   border-spacing: 0;
-  padding-top: 70px;
+  padding-top: 20px;
 }
 
 .App .header {
-  padding: 30px;
-  background: #1abc9c;
+  padding: 20px;
+  background: #00003f;
   color: white;
   justify-content: flex-start;
+  flex-direction: row;
 }
 
 .App .header .title {
   font-weight: bold;
+  font-style: italic;
   font-family: sans-serif;
   font-size: 30px;
   padding-right: 25px;
-  color: black;
+  color: white;
 }
 
-.App #button {
+.App .header .buttons {
+  display: inline-block;
+}
+
+.App #button-BFS {
   background-color: #2ea44f;
-  border: 2px solid rgba(27, 31, 35, 0.5);
+  border: 2px solid white;
   border-radius: 4px;
-  box-shadow: rgba(27, 31, 35, 0.5) 0 1px 0;
-  color: #fff;
+  color: black;
   cursor: pointer;
   font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
@@ -44,6 +49,54 @@
   line-height: 20px;
   padding: 6px 16px;
   white-space: nowrap;
+}
+
+.App #button-DFS {
+  background-color: #2ea44f;
+  border: 2px solid white;
+  border-radius: 4px;
+  color: black;
+  cursor: pointer;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 6px 16px;
+  white-space: nowrap;
+  margin-left: 15px;
+}
+
+.App .legend {
+  padding-top: 40px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.App .legend .startNode {
+  display: inline-block;
+}
+
+.App .legend .targetNode {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.App .legend .visitedNode {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.App .legend .shortestPathNode {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.App .legend .text {
+  font-size: 10;
+  font-weight: bold;
+  font-family: sans-serif;
+  margin-left: 10px;
 }
 
 tbody {
