@@ -4,6 +4,7 @@ import "../App.css";
 import depthFirstSearch from "../algorithms/depthFirstSearch";
 import breadthFirstSearch from "../algorithms/breadthFirstSearch";
 import Legend from "./Legend.js";
+import { render } from "react-dom";
 
 export default class MakeTable extends Component {
   constructor(props) {
@@ -13,7 +14,11 @@ export default class MakeTable extends Component {
     };
   }
 
-  componentDidMount() {
+  refreshPage() {
+    window.location.reload(false);
+  }
+
+  createTable() {
     const rows = [];
     for (var i = 0; i < 25; i++) {
       let cell = [];
@@ -35,6 +40,10 @@ export default class MakeTable extends Component {
     this.setState({ rows });
   }
 
+  componentDidMount() {
+    this.createTable();
+  }
+
   render() {
     const { rows } = this.state;
 
@@ -51,6 +60,9 @@ export default class MakeTable extends Component {
             </button>
             <button id="button-DFS" onClick={() => depthFirstSearch({ rows })}>
               Depth-First Search
+            </button>
+            <button id="button-refresh" onClick={() => this.refreshPage()}>
+              Refresh Table
             </button>
           </div>
         </header>

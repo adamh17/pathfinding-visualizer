@@ -40,7 +40,7 @@
   background-color: #2ea44f;
   border: 2px solid white;
   border-radius: 4px;
-  color: black;
+  color: rgb(255, 255, 255);
   cursor: pointer;
   font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
@@ -51,11 +51,15 @@
   white-space: nowrap;
 }
 
+.App #button-BFS:hover {
+  background-color: #1ae253;
+}
+
 .App #button-DFS {
   background-color: #2ea44f;
   border: 2px solid white;
   border-radius: 4px;
-  color: black;
+  color: rgb(255, 255, 255);
   cursor: pointer;
   font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
@@ -65,6 +69,30 @@
   padding: 6px 16px;
   white-space: nowrap;
   margin-left: 15px;
+}
+
+.App #button-DFS:hover {
+  background-color: #1ae253;
+}
+
+.App #button-refresh {
+  background-color: #2ea44f;
+  border: 2px solid white;
+  border-radius: 4px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 6px 16px;
+  white-space: nowrap;
+  margin-left: 15px;
+}
+
+.App #button-refresh:hover {
+  background-color: #1ae253;
 }
 
 .App .legend {
