@@ -23,7 +23,7 @@ export default async function depthFirstSearch() {
     }
   }
 
-  while (!stack.length == 0) {
+  while (!stack.length === 0) {
     let rowUp = parseInt(stack[0].id.split("-")[0]);
     let rowDown = parseInt(stack[0].id.split("-")[0]);
 
@@ -104,10 +104,6 @@ export default async function depthFirstSearch() {
     let allTableCellsIDs = [];
     for (var x = 0, row; (row = table.rows[x]); x++) {
       for (var y = 0, cell; (cell = row.cells[y]); y++) {
-        // if (path.includes(cell.id)) {
-        //   cell.className = "shortest";
-        //   await sleep(40);
-        // }
         allTableCells.push(cell);
         allTableCellsIDs.push(cell.id);
       }

@@ -10,19 +10,19 @@ export default class Legend extends Component {
     return (
       <div className="legend">
         <div className="startNode">
-          <img src={greenBox} width="20" height="20"></img>
+          <img alt={"start"} src={greenBox} width="20" height="20"></img>
           <text className="text">Start Node</text>
         </div>
         <div className="targetNode">
-          <img src={redBox} width="20" height="20"></img>
+          <img alt={"target"} src={redBox} width="20" height="20"></img>
           <text className="text">Target Node</text>
         </div>
         <div className="visitedNode">
-          <img src={blueBox} width="20" height="20"></img>
+          <img alt={"visited"} src={blueBox} width="20" height="20"></img>
           <text className="text">Visited Node</text>
         </div>
         <div className="shortestPathNode">
-          <img src={yellowBox} width="20" height="20"></img>
+          <img alt={"shortest"} src={yellowBox} width="20" height="20"></img>
           <text className="text">Shortest Path Node</text>
         </div>
       </div>

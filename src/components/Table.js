@@ -3,8 +3,8 @@ import { Component } from "react";
 import "../App.css";
 import depthFirstSearch from "../algorithms/depthFirstSearch";
 import breadthFirstSearch from "../algorithms/breadthFirstSearch";
+import aStar from "../algorithms/aStar";
 import Legend from "./Legend.js";
-import { render } from "react-dom";
 
 export default class MakeTable extends Component {
   constructor(props) {
@@ -24,11 +24,41 @@ export default class MakeTable extends Component {
       let cell = [];
       for (let j = 0; j < 40; j++) {
         if (i === 5 && j === 5) {
-          cell.push(<td key={j} className="start-cell" id={i + "-" + j}></td>);
+          cell.push(
+            <td
+              key={j}
+              className="start-cell"
+              id={i + "-" + j}
+              g={0}
+              h={0}
+              f={0}
+              parent={null}
+            ></td>
+          );
         } else if (i === 5 && j === 25) {
-          cell.push(<td key={j} className="target-cell" id={i + "-" + j}></td>);
+          cell.push(
+            <td
+              key={j}
+              className="target-cell"
+              id={i + "-" + j}
+              g={0}
+              h={0}
+              f={0}
+              parent={null}
+            ></td>
+          );
         } else {
-          cell.push(<td className="testing" key={j} id={i + "-" + j}></td>);
+          cell.push(
+            <td
+              className="testing"
+              key={j}
+              id={i + "-" + j}
+              g={0}
+              h={0}
+              f={0}
+              parent={null}
+            ></td>
+          );
         }
       }
       rows.push(
@@ -60,6 +90,9 @@ export default class MakeTable extends Component {
             </button>
             <button id="button-DFS" onClick={() => depthFirstSearch({ rows })}>
               Depth-First Search
+            </button>
+            <button id="button-DFS" onClick={() => aStar({ rows })}>
+              A*
             </button>
             <button id="button-refresh" onClick={() => this.refreshPage()}>
               Refresh Table
