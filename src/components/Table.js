@@ -23,10 +23,12 @@ export default class MakeTable extends Component {
     for (var i = 0; i < 25; i++) {
       let cell = [];
       for (let j = 0; j < 40; j++) {
-        if (i === 5 && j === 5) {
+        if (i === 10 && j === 5) {
           cell.push(
             <td
               key={j}
+              draggable="true"
+              onDragStart={this.onDragStart}
               className="start-cell"
               id={i + "-" + j}
               g={0}
@@ -37,39 +39,13 @@ export default class MakeTable extends Component {
               y={j}
             ></td>
           );
-        } else if (i === 5 && j === 25) {
+        } else if (i === 10 && j === 35) {
           cell.push(
             <td
               key={j}
+              draggable="true"
+              onDragStart={this.onDragStart}
               className="target-cell"
-              id={i + "-" + j}
-              g={0}
-              h={0}
-              f={0}
-              parent={null}
-              x={i}
-              y={j}
-            ></td>
-          );
-        } else if (i >= 3 && i <= 8 && j === 16) {
-          cell.push(
-            <td
-              key={j}
-              className="wall"
-              id={i + "-" + j}
-              g={0}
-              h={0}
-              f={0}
-              parent={null}
-              x={i}
-              y={j}
-            ></td>
-          );
-        } else if (i === 8 && j > 20 && j < 40) {
-          cell.push(
-            <td
-              key={j}
-              className="wall"
               id={i + "-" + j}
               g={0}
               h={0}
@@ -82,7 +58,10 @@ export default class MakeTable extends Component {
         } else {
           cell.push(
             <td
-              className="testing"
+              className="cell"
+              onDragOver={this.onDragOver}
+              onDrop={this.onDrop}
+              onMouseDown={this.makeWall}
               key={j}
               id={i + "-" + j}
               g={0}
@@ -139,5 +118,35 @@ export default class MakeTable extends Component {
         </table>
       </div>
     );
+  }
+
+  onDragStart(event) {
+    event.dataTransfer.setData("text/plain", event.target.id);
+  }
+
+  onDragOver(event) {
+    event.preventDefault();
+  }
+
+  onDrop(event) {
+    const id = event.dataTransfer.getData("text");
+
+    var draggableElement = document.getElementById(id);
+
+    var dropzone = event.target;
+
+    var temp = document.createElement("div");
+    if (draggableElement !== null) {
+      draggableElement.parentNode.insertBefore(temp, draggableElement);
+      dropzone.parentNode.insertBefore(draggableElement, dropzone);
+      temp.parentNode.insertBefore(dropzone, temp);
+      temp.parentNode.removeChild(temp);
+
+      event.dataTransfer.clearData();
+    }
+  }
+
+  makeWall(event) {
+    event.target.className = "wall";
   }
 }

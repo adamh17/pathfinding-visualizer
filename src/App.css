@@ -139,7 +139,7 @@ tbody {
   border-color: inherit;
 }
 
-.App #table tbody #row .testing {
+.App #table tbody #row .cell {
   border: 1px solid black;
   display: table-cell;
   vertical-align: inherit;
@@ -154,6 +154,7 @@ tbody {
   height: 25px;
   width: 25px;
   background-color: green;
+  cursor: move;
 }
 
 .App #table tbody #row .target-cell {
@@ -163,6 +164,7 @@ tbody {
   height: 25px;
   width: 25px;
   background-color: red;
+  cursor: move;
 }
 
 .visited {

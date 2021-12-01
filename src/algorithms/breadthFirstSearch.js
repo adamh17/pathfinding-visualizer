@@ -48,6 +48,7 @@ export default async function breadthFirstSearch() {
           path.push(parent[path.at(-1)]);
         }
         path.reverse();
+        console.log(path);
         shortestPath(path);
         return;
       }
