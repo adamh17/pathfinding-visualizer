@@ -16,16 +16,22 @@ export default async function aStar() {
         cell.f = 0;
         cell.h = 0;
         cell.parent = null;
+        cell.x = x;
+        cell.y = y;
       } else if (cell.className === "target-cell") {
         targetCell = cell;
         cell.g = 0;
         cell.f = 0;
         cell.h = 0;
         cell.parent = null;
+        cell.x = x;
+        cell.y = y;
       } else {
         cell.g = 0;
         cell.f = 0;
         cell.h = 0;
+        cell.x = x;
+        cell.y = y;
         cell.parent = null;
       }
     }
@@ -36,120 +42,86 @@ export default async function aStar() {
   openList.push(startCell);
 
   while (openList.length > 0) {
-    var lowInd = 0;
+    var low = 0;
     for (var i = 0; i < openList.length; i++) {
-      if (openList[i].f < openList[lowInd].f) {
-        lowInd = i;
+      if (openList[i].f < openList[low].f) {
+        low = i;
       }
     }
 
-    var currentNode = openList[lowInd];
+    var currentNode = openList[low];
+    currentNode.className = "visited";
 
     if (currentNode.id === targetCell.id) {
+      var curr = currentNode;
       var ret = [];
-      while (currentNode.parent) {
-        currentNode.className = "visited";
-        ret.push(currentNode);
-        currentNode = currentNode.parent;
+      while (curr.parent) {
+        ret.push(curr);
+        curr = curr.parent;
       }
 
       for (cell of ret.reverse()) {
         await sleep(100);
         cell.className = "shortest";
       }
+      return;
     }
 
     var index = openList.indexOf(currentNode);
     openList.splice(index, 1);
     closedList.push(currentNode);
 
-    var neighborss = neighbors(grid, currentNode);
-    for (var j = 0; j < neighbors.length; j++) {
-      var neighbor = neighborss[j];
-      if (closedList.includes(neighbor)) {
+    var neighboursList = neighbours(grid, currentNode);
+    for (var j = 0; j < neighboursList.length; j++) {
+      var neighbour = neighboursList[j];
+      if (closedList.includes(neighbour) || neighbour.className == "wall") {
         continue;
       }
 
-      var gScore = currentNode.g + 1;
-      var gScoreIsBest = false;
+      var gValue = currentNode.g + 1;
+      var bestGValue = false;
 
-      if (!openList.includes(neighbor)) {
-        gScoreIsBest = true;
-        neighbor.h = heuristic(neighbor.id, targetCell.id);
-        openList.push(neighbor);
-      } else if (gScore < neighbor.g) {
-        gScoreIsBest = true;
+      if (!openList.includes(neighbour)) {
+        bestGValue = true;
+        neighbour.h = heuristic(neighbour, targetCell);
+        openList.push(neighbour);
+      } else if (gValue < neighbour.g) {
+        bestGValue = true;
       }
 
-      if (gScoreIsBest) {
-        neighbor.parent = currentNode;
-        neighbor.g = gScore;
-        neighbor.f = neighbor.g + neighbor.h;
+      if (bestGValue) {
+        neighbour.parent = currentNode;
+        neighbour.g = gValue;
+        neighbour.f = neighbour.g + neighbour.h;
       }
     }
+    await sleep(0);
   }
-
-  function neighbors(grid, currentCell) {
-    let rowUp = parseInt(currentCell.id.split("-")[0]);
-    let rowDown = parseInt(currentCell.id.split("-")[0]);
-
-    let r = currentCell.id.split("-")[0];
-    let c = currentCell.id.split("-")[1];
-    let currentRow = grid.rows[r];
-
-    let nextCellRight = currentRow.cells[r + "-" + String(parseInt(c) + 1)];
-    let nextCellLeft = currentRow.cells[r + "-" + String(parseInt(c) - 1)];
-
-    let nextRowUp = undefined;
-    if (rowUp - 1 >= 0) {
-      nextRowUp =
-        grid.rows[(rowUp - 1).toString()].cells[
-          (rowUp - 1).toString() + "-" + c
-        ];
-    }
-    rowUp = rowUp - 1;
-
-    let nextRowDown = undefined;
-    if (rowDown + 1 <= 24) {
-      nextRowDown =
-        grid.rows[(rowDown + 1).toString()].cells[
-          (rowDown + 1).toString() + "-" + c
-        ];
-    }
-    rowDown = rowDown + 1;
-
-    var ret = [];
-
-    if (nextCellLeft !== undefined) {
-      ret.push(nextCellLeft);
-    }
-
-    if (nextCellRight !== undefined) {
-      ret.push(nextCellRight);
-    }
-
-    if (nextRowUp !== undefined) {
-      ret.push(nextRowUp);
-    }
-
-    if (nextRowDown !== undefined) {
-      ret.push(nextRowDown);
-    }
-
-    return ret;
-  }
-
-  function heuristic(pos0, pos1) {
-    var x = parseInt(pos0.split("-")[0]);
-    var y = parseInt(pos0.split("-")[1]);
-
-    var a = parseInt(pos1.split("-")[0]);
-    var b = parseInt(pos1.split("-")[1]);
-
-    var d1 = Math.abs(x - a);
-    var d2 = Math.abs(y - b);
-    return d1 + d2;
-  }
-
   return [];
+}
+
+function neighbours(grid, currentCell) {
+  var ret = [];
+  var x = currentCell.x;
+  var y = currentCell.y;
+
+  if (grid.rows[x - 1] && grid.rows[x - 1].cells[y]) {
+    ret.push(grid.rows[x - 1].cells[y]);
+  }
+  if (grid.rows[x + 1] && grid.rows[x + 1].cells[y]) {
+    ret.push(grid.rows[x + 1].cells[y]);
+  }
+  if (grid.rows[x] && grid.rows[x].cells[y - 1]) {
+    ret.push(grid.rows[x].cells[y - 1]);
+  }
+  if (grid.rows[x] && grid.rows[x].cells[y + 1]) {
+    ret.push(grid.rows[x].cells[y + 1]);
+  }
+  return ret;
+}
+
+function heuristic(pos0, pos1) {
+  var d1 = Math.abs(pos1.x - pos0.x);
+  var d2 = Math.abs(pos1.y - pos0.y);
+  return d1 + d2;
 }

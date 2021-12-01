@@ -16,17 +16,21 @@ export default async function depthFirstSearch() {
     for (var y = 0, cell; (cell = row.cells[y]); y++) {
       if (cell.className === "start-cell") {
         startCell = cell;
+        cell.x = x;
+        cell.y = y;
         stack.push(cell);
       } else if (cell.className === "target-cell") {
         targetCell = cell;
+        cell.x = x;
+        cell.y = y;
+      } else {
+        cell.x = x;
+        cell.y = y;
       }
     }
   }
 
-  while (!stack.length === 0) {
-    let rowUp = parseInt(stack[0].id.split("-")[0]);
-    let rowDown = parseInt(stack[0].id.split("-")[0]);
-
+  while (!stack.length == 0) {
     var currentCell = stack.pop();
     currentCell.className = "visited";
 
@@ -38,30 +42,13 @@ export default async function depthFirstSearch() {
       continue;
     }
 
-    let r = currentCell.id.split("-")[0];
-    let c = currentCell.id.split("-")[1];
-    let currentRow = table.rows[r];
+    var x = currentCell.x;
+    var y = currentCell.y;
 
-    let nextCellRight = currentRow.cells[r + "-" + String(parseInt(c) + 1)];
-    let nextCellLeft = currentRow.cells[r + "-" + String(parseInt(c) - 1)];
-
-    let nextRowUp = undefined;
-    if (rowUp - 1 >= 0) {
-      nextRowUp =
-        table.rows[(rowUp - 1).toString()].cells[
-          (rowUp - 1).toString() + "-" + c
-        ];
-    }
-    rowUp = rowUp - 1;
-
-    let nextRowDown = undefined;
-    if (rowDown + 1 <= 24) {
-      nextRowDown =
-        table.rows[(rowDown + 1).toString()].cells[
-          (rowDown + 1).toString() + "-" + c
-        ];
-    }
-    rowDown = rowDown + 1;
+    var nextRowUp = table.rows[x - 1] && table.rows[x - 1].cells[y];
+    var nextRowDown = table.rows[x + 1] && table.rows[x + 1].cells[y];
+    var nextCellLeft = table.rows[x] && table.rows[x].cells[y - 1];
+    var nextCellRight = table.rows[x] && table.rows[x].cells[y + 1];
 
     try {
       if (currentCell.id === targetCell.id) {
@@ -70,27 +57,42 @@ export default async function depthFirstSearch() {
           path.push(parent[path.at(-1)]);
         }
         path.reverse();
-        // console.log(path);
         shortestPath(path);
         return;
       }
 
-      if (nextRowUp !== undefined && !explored.has(nextRowUp)) {
+      if (
+        table.rows[x - 1] &&
+        table.rows[x - 1].cells[y] &&
+        !explored.has(nextRowUp) &&
+        nextRowUp.className !== "wall"
+      ) {
         parent[nextRowUp.id] = currentCell.id;
         stack.push(nextRowUp);
-        // currentCell.className = "visited";
-      } else if (nextCellRight !== undefined && !explored.has(nextCellRight)) {
+      } else if (
+        table.rows[x] &&
+        table.rows[x].cells[y + 1] &&
+        !explored.has(nextCellRight) &&
+        nextCellRight.className !== "wall"
+      ) {
         parent[nextCellRight.id] = currentCell.id;
         stack.push(nextCellRight);
-        // currentCell.className = "visited";
-      } else if (nextRowDown !== undefined && !explored.has(nextRowDown)) {
+      } else if (
+        table.rows[x + 1] &&
+        table.rows[x + 1].cells[y] &&
+        !explored.has(nextRowDown) &&
+        nextRowDown.className !== "wall"
+      ) {
         parent[nextRowDown.id] = currentCell.id;
         stack.push(nextRowDown);
-        // currentCell.className = "visited";
-      } else if (nextCellLeft !== undefined && !explored.has(nextCellLeft)) {
+      } else if (
+        table.rows[x] &&
+        table.rows[x].cells[y - 1] &&
+        !explored.has(nextCellLeft) &&
+        nextCellLeft.className !== "wall"
+      ) {
         parent[nextCellLeft.id] = currentCell.id;
         stack.push(nextCellLeft);
-        // currentCell.className = "visited";
       }
 
       await sleep(0);

@@ -33,6 +33,8 @@ export default class MakeTable extends Component {
               h={0}
               f={0}
               parent={null}
+              x={i}
+              y={j}
             ></td>
           );
         } else if (i === 5 && j === 25) {
@@ -45,6 +47,36 @@ export default class MakeTable extends Component {
               h={0}
               f={0}
               parent={null}
+              x={i}
+              y={j}
+            ></td>
+          );
+        } else if (i >= 3 && i <= 8 && j === 16) {
+          cell.push(
+            <td
+              key={j}
+              className="wall"
+              id={i + "-" + j}
+              g={0}
+              h={0}
+              f={0}
+              parent={null}
+              x={i}
+              y={j}
+            ></td>
+          );
+        } else if (i === 8 && j > 20 && j < 40) {
+          cell.push(
+            <td
+              key={j}
+              className="wall"
+              id={i + "-" + j}
+              g={0}
+              h={0}
+              f={0}
+              parent={null}
+              x={i}
+              y={j}
             ></td>
           );
         } else {
@@ -57,6 +89,8 @@ export default class MakeTable extends Component {
               h={0}
               f={0}
               parent={null}
+              x={i}
+              y={j}
             ></td>
           );
         }
