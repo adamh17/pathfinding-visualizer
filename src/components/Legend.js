@@ -4,6 +4,7 @@ import greenBox from "../greenbox.jpg";
 import redBox from "../redbox.jpg";
 import blueBox from "../bluebox.jpg";
 import yellowBox from "../yellowbox.jpg";
+import black from "../black.jpg";
 
 export default class Legend extends Component {
   render() {
@@ -24,6 +25,10 @@ export default class Legend extends Component {
         <div className="shortestPathNode">
           <img alt={"shortest"} src={yellowBox} width="20" height="20"></img>
           <text className="text">Shortest Path Node</text>
+        </div>
+        <div className="wallNode">
+          <img alt={"wall"} src={black} width="20" height="20"></img>
+          <text className="text">Wall Node</text>
         </div>
       </div>
     );

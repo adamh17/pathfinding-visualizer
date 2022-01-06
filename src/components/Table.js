@@ -147,6 +147,10 @@ export default class MakeTable extends Component {
   }
 
   makeWall(event) {
-    event.target.className = "wall";
+    if (event.target.className === "cell") {
+      event.target.className = "wall";
+    } else if (event.target.className === "wall") {
+      event.target.className = "cell";
+    }
   }
 }

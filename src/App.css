@@ -120,6 +120,11 @@
   margin-left: 20px;
 }
 
+.App .legend .wallNode {
+  display: inline-block;
+  margin-left: 20px;
+}
+
 .App .legend .text {
   font-size: 10;
   font-weight: bold;
