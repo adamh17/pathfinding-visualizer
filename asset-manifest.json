@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/pathfinding-visualizer/static/css/main.0b6a8900.chunk.css",
+    "main.js": "/pathfinding-visualizer/static/js/main.2d70581b.chunk.js",
+    "main.js.map": "/pathfinding-visualizer/static/js/main.2d70581b.chunk.js.map",
+    "runtime-main.js": "/pathfinding-visualizer/static/js/runtime-main.d6e29985.js",
+    "runtime-main.js.map": "/pathfinding-visualizer/static/js/runtime-main.d6e29985.js.map",
+    "static/js/2.921b6f38.chunk.js": "/pathfinding-visualizer/static/js/2.921b6f38.chunk.js",
+    "static/js/2.921b6f38.chunk.js.map": "/pathfinding-visualizer/static/js/2.921b6f38.chunk.js.map",
+    "index.html": "/pathfinding-visualizer/index.html",
+    "static/css/main.0b6a8900.chunk.css.map": "/pathfinding-visualizer/static/css/main.0b6a8900.chunk.css.map",
+    "static/js/2.921b6f38.chunk.js.LICENSE.txt": "/pathfinding-visualizer/static/js/2.921b6f38.chunk.js.LICENSE.txt",
+    "static/media/black.03019217.jpg": "/pathfinding-visualizer/static/media/black.03019217.jpg",
+    "static/media/redbox.3bf2c80a.jpg": "/pathfinding-visualizer/static/media/redbox.3bf2c80a.jpg",
+    "static/media/yellowbox.2ace7f13.jpg": "/pathfinding-visualizer/static/media/yellowbox.2ace7f13.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d6e29985.js",
+    "static/js/2.921b6f38.chunk.js",
+    "static/css/main.0b6a8900.chunk.css",
+    "static/js/main.2d70581b.chunk.js"
+  ]
+}
