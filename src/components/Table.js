@@ -121,7 +121,7 @@ export default class MakeTable extends Component {
   }
 
   onDragStart(event) {
-    event.dataTransfer.setData("text/plain", event.target.id);
+    event.dataTransfer.setData("text", event.target.id);
   }
 
   onDragOver(event) {
@@ -129,6 +129,7 @@ export default class MakeTable extends Component {
   }
 
   onDrop(event) {
+    event.preventDefault();
     const id = event.dataTransfer.getData("text");
 
     var draggableElement = document.getElementById(id);
@@ -136,13 +137,12 @@ export default class MakeTable extends Component {
     var dropzone = event.target;
 
     var temp = document.createElement("div");
+
     if (draggableElement !== null) {
       draggableElement.parentNode.insertBefore(temp, draggableElement);
       dropzone.parentNode.insertBefore(draggableElement, dropzone);
       temp.parentNode.insertBefore(dropzone, temp);
       temp.parentNode.removeChild(temp);
-
-      event.dataTransfer.clearData();
     }
   }
 
