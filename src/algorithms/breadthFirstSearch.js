@@ -31,6 +31,12 @@ export default async function breadthFirstSearch() {
   let parent = {};
   while (queue.length > 0) {
     let currentCell = queue.shift();
+
+    if (
+      currentCell.className != "start-cell" &&
+      currentCell.className != "target-cell"
+    ) {
+    }
     currentCell.className = "visited";
 
     if (!explored.has(currentCell)) {
